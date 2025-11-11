@@ -1,6 +1,6 @@
 <template>
   <layout :transparent="true">
-    <breadcrumb-area title="Shop" subtitle="Shop" />
+    <breadcrumb-area title="商品" subtitle="Shop" />
     <shop-four-col />
   </layout>
 </template>
@@ -11,6 +11,6 @@ import BreadcrumbArea from '../components/common/breadcrumb/BreadcrumbArea.vue';
 import ShopFourCol from '../components/shop/ShopFourCol.vue';
 
 useHead({
-  title: '商品',
+  title: '商品 | 復仇土豆商城',
 });
 </script>

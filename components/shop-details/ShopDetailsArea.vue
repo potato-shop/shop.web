@@ -5,26 +5,9 @@
         <div class="row">
           <div class="col-xl-6 col-lg-6">
             <div class="product__modal-box d-flex">
-              <div class="product__modal-nav mr-20">
-                <nav>
-                  <div class="nav nav-tabs" id="product-details" role="tablist">
-                    <button
-                      v-for="(img, i) in item.related_images"
-                      :key="i"
-                      :class="`nav-item nav-link ${img === active_img ? 'active' : ''}`"
-                      @click="handleActiveImg(img)"
-                      style="margin-bottom: 5px"
-                    >
-                      <div class="product__nav-img w-img">
-                        <img :src="img" alt="image" style="width: 95px; height: 120px; object-fit: cover" />
-                      </div>
-                    </button>
-                  </div>
-                </nav>
-              </div>
               <div class="tab-content mb-20" id="product-detailsContent">
                 <div class="product__modal-img product__thumb w-img">
-                  <img :src="active_img" alt="product_img" />
+                  <img :src="`http://localhost:7777/${props.product?.ImageURL}`" alt="product_img" />
                   <div class="product__sale">
                     <span class="new">new</span>
                     <span class="percent">-16%</span>
@@ -34,12 +17,12 @@
             </div>
           </div>
           <div class="col-xl-6 col-lg-6">
-            <product-details-content :item="item" :style_2="true" />
+            <product-details-content :product="props.product" :style_2="true" />
           </div>
         </div>
       </div>
     </div>
-    <div class="shop__bottom">
+    <!-- <div class="shop__bottom">
       <div class="container">
         <div class="row">
           <div class="col-xl-12">
@@ -60,16 +43,6 @@
                       aria-controls="des"
                       aria-selected="true"
                       >Description</a
-                    >
-                    <a
-                      class="nav-item nav-link"
-                      id="add-tab"
-                      data-bs-toggle="tab"
-                      href="#add"
-                      role="tab"
-                      aria-controls="add"
-                      aria-selected="false"
-                      >Additional Information</a
                     >
                     <a
                       class="nav-item nav-link"
@@ -99,18 +72,7 @@
                     <p>{{ item.details.details_text_2 }}</p>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="add" role="tabpanel">
-                  <div class="product__details-add">
-                    <ul>
-                      <li><span>Weight</span></li>
-                      <li><span>.25 KG</span></li>
-                      <li><span>Dimention</span></li>
-                      <li><span>62 × 56 × 12 cm</span></li>
-                      <li><span>Size</span></li>
-                      <li><span>XL, XXL, LG, SM, MD</span></li>
-                    </ul>
-                  </div>
-                </div>
+
                 <div class="tab-pane fade" id="review" role="tabpanel">
                   <product-details-review :item="item" />
                 </div>
@@ -119,42 +81,15 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </section>
-
-  <!-- related products start -->
-  <related-products :item="item" />
-  <!-- related products end -->
 </template>
 
-<script lang="ts">
-import { defineComponent, type PropType } from 'vue';
+<script setup lang="ts">
+import { ref, type PropType } from 'vue';
 import { type ProductType } from '../../types/productType';
 import ProductDetailsContent from './ProductDetailsContent.vue';
 import ProductDetailsReview from './ProductDetailsReview.vue';
-import RelatedProducts from './RelatedProducts.vue';
 
-export default defineComponent({
-  components: { ProductDetailsContent, ProductDetailsReview, RelatedProducts },
-  props: {
-    item: {
-      type: Object as PropType<ProductType>,
-      default: {},
-      required: true,
-    },
-  },
-  data() {
-    return {
-      active_img: this.item.img,
-    };
-  },
-  methods: {
-    handleActiveImg(img: string) {
-      this.active_img = img;
-    },
-  },
-  setup() {
-    return {};
-  },
-});
+const props = defineProps<{ product: ProductType }>();
 </script>

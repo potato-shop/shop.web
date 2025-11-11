@@ -1,31 +1,44 @@
 <template>
   <layout :transparent="true">
-    <breadcrumb-area title="Product Details" subtitle="Product Details" />
-    <shop-details-area :item="item" />
+    <breadcrumb-area title="商品詳情" subtitle="商品詳情" />
+    <shop-details-area :product="product!" />
   </layout>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 import Layout from '../../layout/Layout.vue';
 import BreadcrumbArea from '../../components/common/breadcrumb/BreadcrumbArea.vue';
-import { useProductsStore } from '../../store/useProducts';
 import ShopDetailsArea from '../../components/shop-details/ShopDetailsArea.vue';
+import { getProductAPI } from '../../api';
+import type { ProductType } from '../../types/productType';
 
-export default defineComponent({
-  components: {
-    Layout,
-    BreadcrumbArea,
-    ShopDetailsArea,
+const route = useRoute();
+const productId = route.params.id;
+const product = ref<ProductType>({
+  ID: 0,
+  CategoryID: 0,
+  Name: '',
+  Description: '',
+  Price: 0,
+  StockQuantity: 0,
+  ImageURL: '',
+  CreatedAt: '',
+  UpdatedAt: '',
+  Category: {
+    ID: 0,
+    Name: '',
+    Description: '',
+    CreatedAt: '',
+    UpdatedAt: '',
   },
-  setup() {
-    const state = useProductsStore();
-    const id = useRoute().params.id;
-    const item = state.products.find((p) => Number(p.id) === Number(id));
-    useHead({
-      title: `${item?.title ? item.title : 'Product Details'} - outStock`,
-    });
-    return { item };
-  },
+});
+
+onBeforeMount(async () => {
+  product.value = await getProductAPI(Number(productId));
+  console.log('🚀 ~ product.value:', product.value);
+});
+
+useHead({
+  title: '商品詳情',
 });
 </script>
