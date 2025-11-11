@@ -1,15 +1,19 @@
 <template>
   <div class="mini-cart">
-    <div v-if="cartItems.length === 0">
+    <div v-if="globalUserState.CartItems.length === 0">
       <h5>你的購物車是空的</h5>
     </div>
-    <div v-if="cartItems.length > 0" class="mini-cart-inner">
+    <div v-if="globalUserState.CartItems.length > 0" class="mini-cart-inner">
       <ul
         :class="`mini-cart-list ${
-          cartItems.length === 1 ? 'slider-height_1' : cartItems.length === 2 ? 'slider-height_2' : 'slider-height'
+          globalUserState.CartItems.length === 1
+            ? 'slider-height_1'
+            : globalUserState.CartItems.length === 2
+            ? 'slider-height_2'
+            : 'slider-height'
         }`"
       >
-        <li v-for="(item, i) in cartItems" :key="i">
+        <li v-for="(item, i) in globalUserState.CartItems" :key="i">
           <div class="cart-img f-left">
             <nuxt-link :href="`/product-details/${item.ID}`">
               <img :src="`http://localhost:7777/${item.Product.ImageURL}`" alt="" />
@@ -27,7 +31,7 @@
             </div>
           </div>
           <!-- remove -->
-          <div class="del-icon f-right mt-30">
+          <div class="del-icon f-right mt-30" @click="deleteCartItem(item.ID)">
             <a href="#">
               <i class="fal fa-times"></i>
             </a>
@@ -47,10 +51,16 @@
 </template>
 
 <script setup lang="ts">
-import type { CartItem } from '../../../types/productType';
+import { deleteCartItemAPI } from '../../../api';
+import { globalUserState } from '../../../store/globalState';
+import { getUserAPI } from '../../../api';
 
-const props = defineProps<{ cartItems: CartItem[] }>();
 const total = computed(() => {
-  return props.cartItems.reduce((sum, item) => sum + item.UnitPrice * item.Quantity, 0);
+  return globalUserState.value.CartItems.reduce((sum, item) => sum + item.UnitPrice * item.Quantity, 0);
 });
+async function deleteCartItem(cartItemId: number) {
+  const res = await deleteCartItemAPI(cartItemId);
+  console.log('🚀 ~ deleteCartItem ~ res:', res);
+  globalUserState.value = await getUserAPI();
+}
 </script>

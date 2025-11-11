@@ -30,10 +30,10 @@
                     <li>
                       <a href="#" class="cart"
                         ><i class="ion-bag"></i> 購物車
-                        <span>({{ user.CartItems.length }})</span>
+                        <span>({{ globalUserState.CartItems.length }})</span>
                       </a>
                       <!-- cart mini start -->
-                      <cart-mini :cart-items="user.CartItems" />
+                      <cart-mini />
                       <!-- cart mini end -->
                     </li>
                   </ul>
@@ -53,12 +53,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import { useCartStore } from '../../store/useCart';
 import Menus from './Menus.vue';
 import CartMini from './header-com/CartMini.vue';
 import OffCanvas from '../../components/common/sidebar/OffCanvas.vue';
 import { getUserAPI } from '../../api';
-import type { User } from '../../types/productType';
+import { globalUserState } from '../../store/globalState';
 
 interface Props {
   white_bg?: boolean;
@@ -70,20 +69,8 @@ withDefaults(defineProps<Props>(), {
   transparent: false,
 });
 
-const state = useCartStore();
 const isSticky = ref(false);
 const offcanvas = ref<InstanceType<typeof OffCanvas>>();
-const user = ref<User>({
-  ID: 0,
-  Email: '',
-  Name: '',
-  Password: '',
-  AvatarURL: '',
-  Role: '',
-  CreatedAt: '',
-  UpdatedAt: '',
-  CartItems: [],
-});
 
 const handleSticky = () => {
   isSticky.value = window.scrollY > 80;
@@ -101,8 +88,11 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleSticky);
 });
 
+async function setGlobalUserState() {
+  globalUserState.value = await getUserAPI();
+}
+
 onBeforeMount(async () => {
-  const res = await getUserAPI();
-  user.value = res;
+  await setGlobalUserState();
 });
 </script>

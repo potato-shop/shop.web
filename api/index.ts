@@ -31,6 +31,10 @@ export async function addCartItemAPI(payload: { ProductID: number; Quantity: num
   return await $fetch(`/api/cart/items`, { method: 'POST', body: payload });
 }
 
+export async function deleteCartItemAPI(cartItemId: number) {
+  return await $fetch(`/api/cart/items/${cartItemId}`, { method: 'DELETE' });
+}
+
 export async function getUserAPI(): Promise<User> {
   return await $fetch(`/api/me`);
 }
