@@ -63,14 +63,13 @@ interface Props {
   transparent?: boolean;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   white_bg: false,
   transparent: false,
 });
 
 const state = useCartStore();
 const isSticky = ref(false);
-const showSearch = ref(false);
 const offcanvas = ref<InstanceType<typeof OffCanvas>>();
 
 const handleSticky = () => {

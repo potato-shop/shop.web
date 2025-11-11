@@ -1,3 +1,5 @@
+import { string } from 'yup';
+
 export interface Category {
   ID: number;
   Name: string;
@@ -16,4 +18,15 @@ export interface ProductType {
   CreatedAt: string;
   UpdatedAt: string;
   Category: Category;
+}
+
+export interface User {
+  ID: number;
+  Email: string;
+  Name: string;
+  Password: string;
+  AvatarURL: string;
+  Role: string;
+  CreatedAt: string;
+  UpdatedAt: string;
 }

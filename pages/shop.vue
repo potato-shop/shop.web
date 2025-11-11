@@ -1,24 +1,16 @@
 <template>
   <layout :transparent="true">
-    <breadcrumb-area title="Shop" subtitle="Shop" />
-    <shop-area />
+    <breadcrumb-area title="商品" subtitle="Shop" />
+    <shop-four-col />
   </layout>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 import Layout from '../layout/Layout.vue';
 import BreadcrumbArea from '../components/common/breadcrumb/BreadcrumbArea.vue';
-import ShopArea from '../components/shop/ShopArea.vue';
+import ShopFourCol from '../components/shop/ShopFourCol.vue';
 
-export default defineComponent({
-  components: {
-    Layout,
-    BreadcrumbArea,
-    ShopArea,
-  },
-  setup() {
-    useHead({ title: 'Shop - outStock' });
-  },
+useHead({
+  title: '商品 | 復仇土豆商城',
 });
 </script>

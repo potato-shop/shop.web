@@ -1,4 +1,4 @@
-import type { ProductType } from '../types/productType';
+import type { ProductType, User } from '../types/productType';
 
 export async function getCategoryListAPI(): Promise<{ List: any; Total: any }> {
   return await $fetch('/api/categories?currentPage=-1&perPage=-1&name=');
@@ -20,5 +20,9 @@ export async function getProductAPI(productId: number): Promise<ProductType> {
 }
 
 export async function addProductToCartAPI() {
-  return await $fetch(`/api/carts`, { method: 'POST' });
+  return await $fetch(`/api/cart/items`, { method: 'POST' });
+}
+
+export async function loginAPI(payload: { Email: string; Password: string }): Promise<User> {
+  return await $fetch(`/api/login`, { method: 'POST', body: payload });
 }
