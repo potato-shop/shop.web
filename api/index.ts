@@ -47,6 +47,10 @@ export async function deleteCartItemAPI(cartItemId: number) {
   return await $fetch(`/api/cart/items/${cartItemId}`, { method: 'DELETE' });
 }
 
+export async function deleteAllCartItemAPI() {
+  return await $fetch(`/api/cart/items/all`, { method: 'DELETE' });
+}
+
 // 訂單
 export async function createOrderAPI(payload: {
   RecipientName: string;

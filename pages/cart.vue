@@ -11,6 +11,6 @@ import BreadcrumbArea from '../components/common/breadcrumb/BreadcrumbArea.vue';
 import CartArea from '../components/cart-wishlists/CartArea.vue';
 
 useHead({
-  title: 'Cart - outStock',
+  title: '購物車',
 });
 </script>

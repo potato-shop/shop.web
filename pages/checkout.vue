@@ -22,6 +22,6 @@ import { useCartStore } from '../store/useCart';
 const state = useCartStore();
 
 useHead({
-  title: '付款 - 土豆',
+  title: '付款',
 });
 </script>

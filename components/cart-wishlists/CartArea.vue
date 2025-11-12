@@ -4,11 +4,7 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <div v-if="state.cart_products.length === 0" class="text-center">
-              <h3>No Cart product</h3>
-              <nuxt-link class="os-btn os-btn-black mt-20" to="/shop"> Shop Now </nuxt-link>
-            </div>
-            <form v-if="state.cart_products.length > 0" action="#">
+            <form action="#">
               <div class="table-content table-responsive">
                 <table class="table">
                   <thead>
@@ -42,7 +38,7 @@
                       <button class="os-btn os-btn-black" name="apply_coupon" type="button">使用優惠碼</button>
                     </div>
                     <div class="coupon2">
-                      <button @click="state.clear_cart" class="os-btn os-btn-black" name="update_cart" type="button">
+                      <button @click="deleteAllCartItem" class="os-btn os-btn-black" name="update_cart" type="button">
                         清空購物車
                       </button>
                     </div>
@@ -71,12 +67,21 @@
 </template>
 
 <script setup lang="ts">
-import { useCartStore } from '../../store/useCart';
 import CartItem from './CartItem.vue';
-import { globalUserState } from '../../store/globalState';
+import { globalUserState, setGlobalUserState } from '../../store/globalState';
+import { deleteAllCartItemAPI } from '../../api';
+import { toast } from 'vue3-toastify';
 
-const state = useCartStore();
+const router = useRouter();
+
 const total = computed(() => {
   return globalUserState.value.CartItems.reduce((sum, item) => sum + item.UnitPrice * item.Quantity, 0);
 });
+
+async function deleteAllCartItem() {
+  await deleteAllCartItemAPI();
+  await setGlobalUserState();
+  await router.push('/shop');
+  toast.success('清空購物車');
+}
 </script>
