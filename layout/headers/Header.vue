@@ -10,8 +10,8 @@
           <div class="row align-items-center">
             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
               <div class="logo">
-                <nuxt-link href="/">
-                  <img src="~/assets/img/logo/logo.png" alt="logo" />
+                <nuxt-link href="/shop">
+                  <img style="height: 45px" src="~/assets/img/logo/logo.svg" alt="logo" />
                 </nuxt-link>
               </div>
             </div>
