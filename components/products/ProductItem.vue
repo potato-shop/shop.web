@@ -25,6 +25,7 @@
 import { type ProductType } from '../../types/productType';
 import { addCartItemAPI, updateCartItemQuantityAPI } from '../../api';
 import { globalUserState, setGlobalUserState } from '../../store/globalState';
+import { toast } from 'vue3-toastify';
 
 defineProps<{ item: ProductType }>();
 
@@ -35,6 +36,7 @@ async function cartButtonHandler(product: ProductType) {
   } else {
     addCartItem(product);
   }
+  toast.success('加入購物車');
 }
 
 async function addCartItem(product: ProductType) {

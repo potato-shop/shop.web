@@ -1,5 +1,5 @@
 <template>
-  <div :class="`product__modal-content ${style_2 ? 'product__modal-content-2' : ''}`">
+  <div :class="`product__modal-content`">
     <h4>
       <nuxt-link :href="`/product-details/${product?.ID}`">
         <span v-html="product?.Name"></span>
@@ -23,14 +23,12 @@
           <span><i class="fal fa-star"></i></span>
         </li>
       </ul>
-      <!-- <span class="rating-no ml-10"> {{ product.rating }} rating(s) </span> -->
     </div>
     <div class="product__price-2 mb-25">
-      <span>${{ product?.Price.toLocaleString() }}</span>
-      <!-- <span v-if="product.old_price" class="old-price">${{ product.old_price }}</span> -->
+      <span>${{ props.product?.Price.toLocaleString() }}</span>
     </div>
     <div class="product__modal-des mb-30">
-      <p>{{ product?.Description }}</p>
+      <p>{{ props.product?.Description }}</p>
     </div>
     <div class="product__modal-form">
       <form action="#">
@@ -40,13 +38,15 @@
           </div>
           <div class="product-quantity">
             <div class="cart-plus-minus">
-              <input type="text" />
-              <div class="dec qtybutton">-</div>
-              <div class="inc qtybutton">+</div>
+              <input v-model="amount" type="text" />
+              <div @click="decreaseAmountHandler" class="dec qtybutton">-</div>
+              <div @click="amount++" class="inc qtybutton">+</div>
             </div>
           </div>
           <div class="pro-cart-btn ml-20">
-            <a @click.prevent="addCartItem" href="#" class="os-btn os-btn-black os-btn-3 mr-10">+ Add to Cart</a>
+            <a @click.prevent="cartButtonHandler(props.product)" href="#" class="os-btn os-btn-black os-btn-3 mr-10"
+              >+ 加入購物車</a
+            >
           </div>
         </div>
       </form>
@@ -56,17 +56,42 @@
 
 <script setup lang="ts">
 import type { ProductType } from '../../types/productType';
-import { addCartItemAPI } from '../../api';
+import { addCartItemAPI, updateCartItemQuantityAPI } from '../../api';
+import { toast } from 'vue3-toastify';
+import { setGlobalUserState, globalUserState } from '../../store/globalState';
 
-interface Props {
-  product: ProductType;
-  style_2?: boolean;
+const props = defineProps<{ product: ProductType }>();
+const amount = ref(1);
+
+function decreaseAmountHandler() {
+  if (amount.value > 1) {
+    amount.value--;
+  }
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  style_2: false,
-});
+async function cartButtonHandler(product: ProductType) {
+  const productAlreadyInCart = globalUserState.value.CartItems.some((item) => item.ProductID == product.ID);
+  if (productAlreadyInCart) {
+    updateCartItemQuantity(product);
+  } else {
+    addCartItem(product);
+  }
+  toast.success('加入購物車');
+}
 
-async function addCartItem() {
+async function addCartItem(product: ProductType) {
+  const res = await addCartItemAPI({ ProductID: product.ID, Quantity: 1, UnitPrice: product.Price });
+  console.log('🚀 ~ addCartItem ~ res:', res);
+  await setGlobalUserState();
+}
+
+async function updateCartItemQuantity(product: ProductType) {
+  const cartItem = globalUserState.value.CartItems.find((item) => item.ProductID == product.ID);
+  const res = await updateCartItemQuantityAPI({
+    cartItemId: cartItem?.ID!,
+    Quantity: cartItem?.Quantity! + amount.value,
+  });
+  console.log('🚀 ~ updateCartItemQuantity ~ res:', res);
+  await setGlobalUserState();
 }
 </script>

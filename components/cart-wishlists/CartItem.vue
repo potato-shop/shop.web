@@ -1,29 +1,29 @@
 <template>
   <tr>
     <td class="product-thumbnail">
-      <nuxt-link :href="`/product-details/${item.ID}`">
-        <img :src="`http://localhost:7777/${item.Product.ImageURL}`" alt="" />
+      <nuxt-link :href="`/product-details/${cartItem.ID}`">
+        <img :src="`http://localhost:7777/${cartItem.Product.ImageURL}`" alt="" />
       </nuxt-link>
     </td>
     <td class="product-name">
-      <nuxt-link :href="`/product-details/${item.ID}`">
-        <span v-html="item.Product.Name"></span>
+      <nuxt-link :href="`/product-details/${cartItem.ID}`">
+        <span v-html="cartItem.Product.Name"></span>
       </nuxt-link>
     </td>
     <td class="product-price">
-      <span class="amount">${{ item.Product.Price?.toLocaleString() }}</span>
+      <span class="amount">${{ cartItem.Product.Price?.toLocaleString() }}</span>
     </td>
     <td class="product-quantity">
       <div class="cart-plus-minus">
-        <input type="text" v-model="item.Quantity" />
-        <div @click="state.quantityDecrement(item)" class="dec qtybutton">-</div>
-        <div @click="state.add_cart_product(item)" class="inc qtybutton">+</div>
+        <input type="text" v-model="cartItem.Quantity" />
+        <div class="dec qtybutton" @click="decreaseAmountHandler">-</div>
+        <div class="inc qtybutton" @click="increaseAmountHandler">+</div>
       </div>
     </td>
     <td class="product-subtotal">
-      <span class="amount">${{ (item.Product.Price * item.Quantity)?.toLocaleString() }}</span>
+      <span class="amount">${{ (cartItem.Product.Price * cartItem.Quantity)?.toLocaleString() }}</span>
     </td>
-    <td class="product-remove" @click.prevent="state.remover_cart_products(item)">
+    <td class="product-remove">
       <a href="#">
         <i class="fa fa-times"></i>
       </a>
@@ -33,11 +33,22 @@
 
 <script setup lang="ts">
 import type { CartItem } from '../../types/productType';
-import { useCartStore } from '../../store/useCart';
+import { updateCartItemQuantityAPI } from '../../api';
+import { setGlobalUserState } from '../../store/globalState';
 
-defineProps<{
-  item: CartItem;
+const props = defineProps<{
+  cartItem: CartItem;
 }>();
 
-const state = useCartStore();
+async function decreaseAmountHandler() {
+  if (props.cartItem.Quantity > 1) {
+    await updateCartItemQuantityAPI({ cartItemId: props.cartItem.ID, Quantity: Number(props.cartItem.Quantity) - 1 });
+    await setGlobalUserState();
+  }
+}
+
+async function increaseAmountHandler() {
+  await updateCartItemQuantityAPI({ cartItemId: props.cartItem.ID, Quantity: Number(props.cartItem.Quantity) + 1 });
+  await setGlobalUserState();
+}
 </script>

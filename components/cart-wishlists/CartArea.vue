@@ -22,7 +22,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <cart-item v-for="(cartItem, i) in globalUserState.CartItems" :key="i" :item="cartItem" />
+                    <cart-item v-for="(cartItem, i) in globalUserState.CartItems" :key="i" :cartItem="cartItem" />
                   </tbody>
                 </table>
               </div>
