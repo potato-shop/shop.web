@@ -36,6 +36,8 @@ export interface User {
   Password: string;
   AvatarURL: string;
   Role: string;
+  Address: string;
+  Phone: string;
   CreatedAt: string;
   UpdatedAt: string;
   CartItems: CartItem[];

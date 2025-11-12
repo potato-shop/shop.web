@@ -53,18 +53,26 @@
                   </div>
                   <div class="profile__info-wrapper white-bg">
                     <div class="profile__info-item">
-                      <p>名稱</p>
+                      <p>姓名</p>
                       <h4>{{ globalUserState.Name }}</h4>
+                    </div>
+                    <div class="profile__info-item">
+                      <p>地址</p>
+                      <h4>
+                        {{ globalUserState.Address }}
+                      </h4>
+                    </div>
+                    <div class="profile__info-item">
+                      <p>電話</p>
+                      <h4>
+                        {{ globalUserState.Phone }}
+                      </h4>
                     </div>
                     <div class="profile__info-item">
                       <p>信箱</p>
                       <h4>
                         {{ globalUserState.Email }}
                       </h4>
-                    </div>
-                    <div class="profile__info-item">
-                      <p>創建時間</p>
-                      <h4>{{ formatDateTime(globalUserState.CreatedAt) }}</h4>
                     </div>
                   </div>
                 </div>
@@ -115,18 +123,6 @@
                   </div>
                 </div>
               </div>
-              <div class="tab-pane fade" id="nav-password" role="tabpanel" aria-labelledby="nav-password-tab">
-                <div class="password__change">
-                  <div class="password__change-top">
-                    <h3 class="password__change-title">Change Password</h3>
-                  </div>
-                  <div class="password__form white-bg">
-                    <!-- form start -->
-                    <change-password-form />
-                    <!-- form start -->
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -134,15 +130,11 @@
     </div>
   </section>
 
-  <!-- edit modal start -->
   <profile-edit-modal />
-  <!-- edit modal end -->
 </template>
 
 <script setup lang="ts">
 import ProfileEditModal from '../common/modals/ProfileEditModal.vue';
-import ChangePasswordForm from '../forms/ChangePasswordForm.vue';
-import { formatDateTime } from '../../utils';
 import { logoutAPI } from '../../api';
 import { toast } from 'vue3-toastify';
 import { globalUserState, clearGlobalUserState } from '../../store/globalState';

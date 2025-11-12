@@ -12,17 +12,11 @@
         <div class="modal-content">
           <div class="profile__edit-wrapper">
             <div class="profile__edit-close">
-              <button
-                type="button"
-                class="profile__edit-close-btn"
-                data-bs-dismiss="modal"
-              >
+              <button type="button" class="profile__edit-close-btn" data-bs-dismiss="modal">
                 <i class="fa fa-times"></i>
               </button>
             </div>
-            <!-- form start -->
             <profile-edit-form />
-            <!-- form end -->
           </div>
         </div>
       </div>
@@ -30,14 +24,6 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import ProfileEditForm from "../../forms/ProfileEditForm.vue";
-
-export default defineComponent({
-  components: { ProfileEditForm },
-  setup() {
-    return {};
-  },
-});
+<script setup lang="ts">
+import ProfileEditForm from '../../forms/ProfileEditForm.vue';
 </script>
