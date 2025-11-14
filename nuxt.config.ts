@@ -24,18 +24,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      API_BASE: 'http://api.revengepotato.com/api',
-      // API_BASE: '/api',
-    },
-  },
-
-  nitro: {
-    // 開發用
-    devProxy: {
-      '/api': {
-        target: 'http://localhost:8000/api',
-        changeOrigin: true,
-      },
+      API_BASE: 'https://api.revengepotato.com/api',
+      // API_BASE: 'http://localhost:8000/api',
     },
   },
 

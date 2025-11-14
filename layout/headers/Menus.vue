@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li>
-      <nuxt-link href="/shop">商品</nuxt-link>
+      <nuxt-link href="/product">商品</nuxt-link>
     </li>
     <li v-if="globalUserState.ID != 0">
       <nuxt-link href="/account">我的帳戶</nuxt-link>
