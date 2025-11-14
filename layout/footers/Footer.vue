@@ -7,8 +7,7 @@
             <div class="footer__copyright">
               <p>
                 Copyright {{ new Date().getFullYear() }} ©
-                <nuxt-link href="/">Outstock</nuxt-link> all rights reserved. Powered by
-                <nuxt-link href="/">Theme_pure</nuxt-link>
+                <nuxt-link href="/">Gary</nuxt-link>
               </p>
             </div>
           </div>
@@ -16,9 +15,6 @@
             <div class="footer__social f-right">
               <ul>
                 <social />
-                <li>
-                  <a href="#"><i class="fas fa-share-alt"></i></a>
-                </li>
               </ul>
             </div>
           </div>
