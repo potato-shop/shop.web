@@ -9,6 +9,9 @@
     <li v-if="globalUserState.ID == 0">
       <nuxt-link href="/login">登入</nuxt-link>
     </li>
+    <li>
+      <nuxt-link href="/brand">品牌介紹</nuxt-link>
+    </li>
   </ul>
 </template>
 
