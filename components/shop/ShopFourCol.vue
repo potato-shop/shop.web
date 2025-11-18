@@ -110,6 +110,7 @@ async function setProductList() {
 
 async function changeCategoryHandler(event: Event) {
   const target = event.target as HTMLSelectElement;
+  search.value.currentPage = 1;
   search.value.categoryId = Number(target.value);
   await setProductList();
 }
