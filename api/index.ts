@@ -13,6 +13,20 @@ const useApi = () => {
   });
 };
 
+export async function signupAPI(payload: { Name: string; Email: string; Password: string; UploadedFile: File }) {
+  const api = useApi();
+  const formData = new FormData();
+  formData.append('Name', payload.Name);
+  formData.append('Email', payload.Email);
+  formData.append('Password', payload.Password);
+  formData.append('UploadedFile', payload.UploadedFile);
+
+  return await api(`${getApiUrl()}/user/signup`, {
+    method: 'POST',
+    body: formData,
+  });
+}
+
 export async function getCategoryListAPI(): Promise<{ List: any; Total: any }> {
   const api = useApi();
   return await api(`${getApiUrl()}/categories?currentPage=-1&perPage=-1&name=`);

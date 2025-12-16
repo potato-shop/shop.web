@@ -19,9 +19,9 @@
     </div>
 
     <div class="mt-10"></div>
-    <button type="submit" class="os-btn w-100">Register Now</button>
+    <button type="submit" class="os-btn w-100">註冊</button>
     <div class="or-divide"><span>or</span></div>
-    <nuxt-link href="/login" class="os-btn os-btn-black w-100">login Now</nuxt-link>
+    <nuxt-link href="/login" class="os-btn os-btn-black w-100">登入</nuxt-link>
   </Form>
 </template>
 

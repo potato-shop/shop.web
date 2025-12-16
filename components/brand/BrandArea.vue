@@ -6,7 +6,7 @@
         <div style="display: flex; flex-direction: column; justify-content: center">
           <h1 style="margin-bottom: 12px">土豆先生</h1>
           <p style="margin: 0; font-size: 18px">
-            多年前從薯條工廠逃出來的平凡土豆，為了拯救工廠中的同伴並向邪惡速食企業復仇，他在黑暗中積蓄力量悄悄等待機會，土豆商城是他的產業之一。
+            從薯條工廠逃出來的土豆，因為想賺錢開始搞電商。
           </p>
         </div>
       </div>
@@ -15,7 +15,7 @@
         <div style="display: flex; flex-direction: column; justify-content: center">
           <h1 style="margin-bottom: 12px">企鵝先生</h1>
           <p style="margin: 0; font-size: 18px">
-            土豆先生的知心好友，前金牌特工，目前擔任土豆商城的貨運司機，喜歡的食物是提魚披薩。
+            土豆先生的朋友，喜歡提魚披薩。
           </p>
         </div>
         <img style="margin: auto" src="~/assets/img/brand/penguin.png" alt="" />
