@@ -16,13 +16,7 @@
                 <div class="mb-20">
                   <label for="email-id">信箱 <span>**</span></label>
                   <div style="position: relative">
-                    <input
-                      v-model="formData.email"
-                      id="email-id"
-                      type="text"
-                      placeholder="輸入信箱..."
-                      style="padding-right: 70px"
-                    />
+                    <input v-model="formData.email" type="text" placeholder="輸入信箱..." style="padding-right: 70px" />
                     <div
                       v-html="svgString"
                       style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%)"
@@ -32,11 +26,11 @@
 
                 <div class="mb-20">
                   <label for="pass">密碼 <span>**</span></label>
-                  <input v-model="formData.password" id="pass" type="password" placeholder="輸入密碼..." />
+                  <input v-model="formData.password"  type="password" placeholder="輸入密碼..." />
                 </div>
 
                 <div class="mt-10"></div>
-                <button type="submit" class="os-btn w-100">註冊</button>
+                <button type="submit" class="os-btn w-100">登入</button>
                 <div class="or-divide"><span>or</span></div>
                 <nuxt-link href="/login" class="os-btn os-btn-black w-100">登入</nuxt-link>
               </form>

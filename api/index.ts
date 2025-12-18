@@ -53,7 +53,7 @@ export async function getProductAPI(productId: number): Promise<ProductType> {
 
 export async function loginAPI(payload: { Email: string; Password: string }): Promise<string> {
   const api = useApi();
-  return await api(`${getApiUrl()}/login`, { method: 'POST', body: payload });
+  return await api(`${getApiUrl()}/user/login`, { method: 'POST', body: payload });
 }
 
 export async function logoutAPI(): Promise<User> {
