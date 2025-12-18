@@ -6,8 +6,8 @@
         <div class="row">
           <div class="col-lg-8 offset-lg-2">
             <div class="basic-login">
-              <h3 class="text-center mb-60">註冊</h3>
-              <div>
+              <h3 class="text-center mb-60">登入</h3>
+              <form @submit.prevent="login">
                 <div class="mb-20">
                   <label for="email-id">信箱 <span>**</span></label>
                   <input v-model="formData.email" type="text" placeholder="輸入信箱..." style="padding-right: 70px" />
@@ -19,8 +19,8 @@
                 </div>
 
                 <div class="mt-10"></div>
-                <button type="submit" class="os-btn w-100" @click.enter="login">登入</button>
-              </div>
+                <button type="submit" class="os-btn w-100">登入</button>
+              </form>
             </div>
           </div>
         </div>
